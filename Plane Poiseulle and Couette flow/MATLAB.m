@@ -14,6 +14,12 @@ u(node_points)=0;                       % For couette Flow change this to say 1m
 u_new(1)=0;
 u_new(node_points)=0;
 
+if u(node_points) == 1
+    sprintf("This is Couette flow simulation")
+else
+    sprintf("This is Plane Poiseulle flow simulation")
+end
+
 dpdx = 1;                               % Pressure Gradient, positive value is favourable pressure gradient here
 
 error_mag=1;                            % Error estimation
@@ -35,15 +41,32 @@ while error_mag>error_req;
      if(rem(iterations, 100)) == 0                        % Plots the residual error
        figure(1);
        hold on
-       semilogy(iterations, error_record(iterations), '-ko')
+       subplot(1,2,1)
+       semilogy(iterations, error_record(iterations), '-kx')
        xlabel('Iterations')
        ylabel('Residual Error')
        
+      
+       figure(1);
+       hold on
+      
+       title(sprintf('Error after %d iterations', iterations))
+       subplot(1,2,2)
+        
+       plot(u,linspace(0, domain_size, node_points))
+       xlabel('X')
+       ylabel('u(y)')
+    
+       title(sprintf('Velocity Profile after %d iterations', iterations))
+       figure(1)
+       hold on
+       
+       pause(0.25)
+      
     end
     u=u_new;
 end
-%% VISUALIZATION
-plot(u,linspace(0, domain_size, node_points))               % Velocity profile plot
+
 
 
     
