@@ -6,10 +6,10 @@ clear all
 domain_size=1;                          % Define the domain size
 node_points=100;                        % Number of Grid Points
 h=domain_size/(node_points-1);          % Size of each element of the mesh
-mu = 5;                                 % Viscosity
+mu = 2;                                 % Viscosity
 
 dt = 0.00001;
-dpdx = 50;
+dpdx = 10;
 Re = 20;
 alpha = 1/(Re*h*h);
 
@@ -34,7 +34,7 @@ error_req=1e-5;                         % Threshold Error
 iterations=0;                           % No of iterations
 error_record = 0;                       % Array to record Errors
 %% SOLUTION
-tic
+tStart = tic;
 while error_mag>error_req;
     for i=2:node_points-1
         u_new(i) = u(i) + (dt/(h*h))*(mu*(u(i-1) + u(i+1) - 2*u(i)) - (dpdx*h*h)); % using the finite difference method
@@ -73,8 +73,8 @@ while error_mag>error_req;
     end
     u=u_new;
 end
-toc
-f = msgbox('Solution Converged');
+tEnd = toc(tStart);
+f = msgbox(sprintf('Solution Converged\nTime taken = %g', tEnd));
 %% Time Visualization 
 time=(1:iterations).*dt;
 semilogy(time, error_record)

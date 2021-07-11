@@ -12,7 +12,7 @@ dt = 0.00001;
 nu = 1e-2;                              % Kinematic Viscosity
 
 u(1)=1;                                 % The Velocity is 1m/s
-u(node_points)=0;                       % The velocity at the bottomost Layer is 0          
+(node_points)=0;                       % The velocity at the bottomost Layer is 0          
 
 u_new(1)=1;
 u_new(node_points)=0;
@@ -27,6 +27,7 @@ error_req=1e-5;                         % Threshold Error
 iterations=0;                           % No of iterations
 error_record = 0;                       % Array to record Errors
 %% SOLUTION
+tStart = tic;
 while error_mag>error_req;
 
     for i=2:node_points-1
@@ -66,7 +67,8 @@ while error_mag>error_req;
     end
     u=u_new;
 end
-f = msgbox('Solution Converged');
+tEnd = toc(tStart)
+f = msgbox(sprintf('Solution Converged\nTime taken = %g', tEnd));
 %% Time Visualization 
 time=(1:iterations).*dt;
 semilogy(time, error_record)
@@ -78,3 +80,13 @@ title('Residual Error over time')
 plot(u, linspace(0, domain_size, node_points))
 xlabel('X')
 ylabel('u(y)')
+%% Anylytical Solution
+U = 1;
+eta = 0:0.1:7
+u = U*(1 - erf(eta));
+
+for t = 0:30:900
+    y = eta*2*(nu*t)^0.5;
+    plot(u,y)
+    hold on
+end
