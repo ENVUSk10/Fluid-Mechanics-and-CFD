@@ -1,4 +1,4 @@
-%% Stokes' First problem
+%% STOKES' FIRST PROBLEM
 clc
 close all
 clear all

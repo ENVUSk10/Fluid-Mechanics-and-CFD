@@ -1,4 +1,6 @@
-%% 2-D Plane Poiseulle Flow and Couette flow
+%% 2-D PLANE POISEULLE FLOW AND COUETTE FLOW
+
+%% CLEAR SCREEN
 clc
 close all
 clear all

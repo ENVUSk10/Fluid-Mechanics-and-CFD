@@ -1,4 +1,4 @@
-%% 2-D usteady Plane Poiseulle Flow and Couette flow
+%% 2-D  UNSTEADY PLANE POISEULLE FLOW AND COUETTE FLOWow
 clc
 close all
 clear all
