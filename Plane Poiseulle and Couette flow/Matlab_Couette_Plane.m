@@ -30,7 +30,7 @@ y_dom = 1-((1:node_points)-1).*h;
 [X,Y] = meshgrid(x_dom,y_dom);
 
 error_mag=1;                            % Error estimation
-error_req=1e-3;                         % Threshold Error
+error_req=1e-2;                         % Threshold Error
 iterations=0;                           % No of iterations
 error_record = 0;                       % Array to record Errors
 %% SOLUTION
@@ -44,7 +44,7 @@ while error_mag>error_req;
     iterations=iterations+1;
     error_mag=0;
     for i=2:node_points
-        for i=2: node_points
+        for j=2: node_points
             error_mag=error_mag+abs(u(i,j) - u_new(i,j));
             error_record(iterations) = error_mag;
         end
@@ -78,11 +78,9 @@ while error_mag>error_req;
        xlabel('x')
        ylabel('y')
        title(sprintf('Velocity Contours after %d iterations', iterations))
+       
     end
     u=u_new;
 end
 figure(3)
-quiver(X, Y, u,v,  2, 'k')
-tEnd = toc(tStart);
-f = msgbox(sprintf('Solution Converged\nTime taken = %g seconds', tEnd));
-
+quiver(X, Y, u, v, 2)
