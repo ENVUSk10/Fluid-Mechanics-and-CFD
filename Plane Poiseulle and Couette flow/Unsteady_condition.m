@@ -89,6 +89,7 @@ while error_mag>error_req;
 end
 tEnd = toc(tStart);
 f = msgbox(sprintf('Solution Converged\nTime taken = %g', tEnd));
+figure(3)
 quiver(X,Y,u,v,2);
 
 

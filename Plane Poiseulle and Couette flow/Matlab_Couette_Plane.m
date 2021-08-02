@@ -4,14 +4,14 @@ close all
 clear all
 %% CREATING THE MESH
 domain_size=1;                          % Define the domain size
-node_points=50;                         % Number of Grid Points
+node_points = 50;                         % Number of Grid Points
 h=domain_size/(node_points-1);          % Size of each element of the mesh
 mu = 2 ;                                % Viscosity
 
-u(1, 1:node_points)=1;                  % For couette Flow change this to say 1m/s            
+u(1, 1:node_points)=0;                  % For couette Flow change this to say 1m/s            
 u(node_points,1:node_points)=0;       
 
-u_new(1, 1:node_points)=1;                                 
+u_new(1, 1:node_points)=0;                                 
 u_new(node_points,1:node_points)=0;    
 
 v(1,1) = 0;
@@ -23,7 +23,7 @@ else
     disp("This is Plane Poiseulle flow simulation")
 end
 
-dpdx = 0;                              % Pressure Gradient, negative value is favourable pressure gradient here
+dpdx = -5;                              % Pressure Gradient, negative value is favourable pressure gradient here
 
 x_dom = ((1:node_points)-1).*h;
 y_dom = 1-((1:node_points)-1).*h;
