@@ -1,4 +1,4 @@
-%% D2Q9 2-D Diffusion
+%% D2Q9 2-D  Advection Diffusion
 clc
 close 
 clear 

@@ -130,7 +130,7 @@ for time = 1: timestep
 end
 tEnd = toc(tStart);
 f = msgbox(sprintf('Solution Converged\nTime taken = %g', tEnd));
-
+rho= zeros(grid_points,grid_points);
 
 
 
