@@ -53,7 +53,7 @@ for(int i = 0; i<node_points+1; i++)
 
     if((dx*i) < 0.5)
     {
-		U[0][i] = RhoL;
+	U[0][i] = RhoL;
         U[1][i] = RhouL;
         U[2][i] = etL;
 
@@ -71,9 +71,9 @@ for(int i = 0; i<node_points+1; i++)
 
 for(int time = 1; time<= FinalTime; time++)
 {
-	for(int i = 0; i<node_points; i++)
+    for(int i = 0; i<node_points; i++)
     {
-	   RhoL = U[0][i];
+       RhoL = U[0][i];
        RhoR = U[0][i+1];
 
        RhouL = U[1][i];
@@ -97,60 +97,60 @@ for(int time = 1; time<= FinalTime; time++)
        MachL = uL/cL;
        MachR = uR/cR;
 
-	   if(MachL <= -1.0)
-	   {
-			M1 = 0.0;
+       if(MachL <= -1.0)
+       {
+	    M1 = 0.0;
             P1 = 0.0;
-       }
+        }
         else if(MachL < 1.0)
         {
-			M1 = 0.25*(MachL + 1)*(MachL + 1);
+	    M1 = 0.25*(MachL + 1)*(MachL + 1);
             P1 = 0.25*(2 - MachL)*pow((MachL + 1),2)*pL;
-		}
+	}
         else
         {
-			M1 = MachL;
+	    M1 = MachL;
             P1 = pL;
         }
 
 
         if(MachR <= -1.0)
         {
-			M2 = MachR;
+	    M2 = MachR;
             P2 = pR;
         }
-		else if(MachR < 1.0)
+	else if(MachR < 1.0)
         {
-			M2 = -0.25*(MachR - 1)*(MachR - 1.0);
+	    M2 = -0.25*(MachR - 1)*(MachR - 1.0);
             P2 = 0.25*(2.0 + MachR)*pow((MachR - 1.0),2)*pR;
         }
-		else
+	else
         {
-			M2 = 0.0;
+	    M2 = 0.0;
             P2 = 0.0;
         }
 
-		M = M1 + M2;
+	M = M1 + M2;
         P = P1 + P2;
-		
+	
+	// Upwinding scheme	
         F[0][i] = max(0.0, M)*RhoL*cL + min(0.0,M)*RhoR*cR;
         F[1][i] = max(0.0, M)*RhouL*cL + min(0.0,M)*RhouR*cR + P;
         F[2][i] = max(0.0, M)*RhoL*hL*cL + min(0.0,M)*RhoR*hR*cR;
 
-	}
+      }
 
 	for(int i = 1; i<node_points; i++)
-    {
-		U[0][i] = U[0][i] - (dt/dx)*(F[0][i] - F[0][i-1]);
-        U[1][i] = U[1][i] - (dt/dx)*(F[1][i] - F[1][i-1]);
-        U[2][i] = U[2][i] - (dt/dx)*(F[2][i] - F[2][i-1]);
+        {
+	       U[0][i] = U[0][i] - (dt/dx)*(F[0][i] - F[0][i-1]);
+               U[1][i] = U[1][i] - (dt/dx)*(F[1][i] - F[1][i-1]);
+               U[2][i] = U[2][i] - (dt/dx)*(F[2][i] - F[2][i-1]);
+	}
 
-    }
-
-	U[0][0] = U[0][1];
-    U[1][0] = U[1][1];
-    U[2][0] = U[2][1];
-}
+	 U[0][0] = U[0][1];
+         U[1][0] = U[1][1];
+         U[2][0] = U[2][1];
+ }
 for(int i =0; i<=2; i++)
 {
 	for(int j = 0; j< node_points; j++)
