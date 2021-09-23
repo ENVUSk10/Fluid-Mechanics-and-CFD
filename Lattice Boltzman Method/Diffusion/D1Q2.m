@@ -39,7 +39,7 @@ for time = 1:timestep
     for i = 2: node_points-1 
         f1(i) = f3(i-1);
     end
-    for i = 1:node_points-1
+    for i = 2:node_points-1
         f2(i) = f2(i+1);
     end
     f1(1) = temp1 - f2(1); 
