@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-// Function to find Minimum and Maximum
+// Function to find Minimum and Maximum Value
 double max(double x, double y)
 {
   if (x>y) return x;
